@@ -1,0 +1,52 @@
+.buttons-container {
+  height:100px;
+  background-size: 100%; 
+  margin-left:400px;
+  font-family: 'DM Mono', monospace;
+}
+
+.buttons img {
+  height: 50px;
+  width: 50px;
+  padding: 4px 4px;
+  position: relative;
+  /*top: 5px;*/
+  font-family: 'DM Mono', monospace;
+}
+.buttons {
+  margin: 0;
+  list-style: none;
+  padding-top: 15px;
+  font-family: 'DM Mono', monospace;
+}
+
+.buttons a {
+  font: 15px DM Mono, monospace, 
+  color: Black;
+  text-decoration: none;
+  display: block;
+  line-height: 40px;
+  font-family: 'DM Mono', monospace;
+}
+
+.buttons>li {
+  position: relative;
+  left: 0.5px;
+  float: left;
+  width: 100px;
+  font-family: 'DM Mono', monospace;
+}
+
+.buttons>li:hover {
+  border-radius: 20%;
+  background-color: #d9d9d9;
+  transition: background-color 0.2s;
+  font-family: 'DM Mono', monospace;
+}
+
+.buttons li:hover>ul {
+  display: inline;
+  height: auto;
+  opacity: 1;
+  font-family: 'DM Mono', monospace;
+}

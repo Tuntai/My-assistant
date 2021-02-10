@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#9f9ec8; font-family: 'Slabo 27px', serif;" >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voice Controlled Notes App #speech Recognition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/note.css">
+    <link rel="stylesheet" href="css/tab.css">
+     <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet"> 
+  </head>
+
+  <body style="color:white">
+
+    <div class="buttons-container">
+      
+      <ul class="buttons" align="center">
+        
+        <li> 
+          <a id="home" name="home" href="index.html" title="Jot down!">
+            <img src="static/icons/home.png" alt="">
+          </a>
+        </li>
+        <li> 
+          <a id="note" name="note" href="note.html"  title="Jot down!">
+            <img src="static/icons/notes.png" alt="">
+          </a>
+        </li>
+        <li>
+          <a id="Task Manager" name="Task Manager" href="task.html"  title="Task Manager">
+            <img src="static/icons/todo.png" alt="">
+          </a>
+        </li>                     
+        <li>
+          <a id="relax.html" name="relax.html" href="relax.html"  title="relax.html">
+            <img src="static/icons/heart.png" alt="">
+          </a>
+        </li>
+        <li>
+          <a id="flight_search" name="flight_search" href="flight.html" title="flight search">
+            <img src="static/icons/flight.png" alt="">
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+    <br>
+    <br>
+  <!-- partial:index.partial.html -->
+    <div class="container" style="border:solid white">
+      
+      <h1>Voice Controlled Notes App</h1>
+      <p class="page-description">A tiny app that allows you to take notes     by recording your voice and save that note locally on your computer.
+      </p>
+      
+      <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
+      <div class="app">
+        <h3>Add New Note</h3>
+        <div class="input-single">
+          <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea>
+        </div>
+
+        <div class="voice-settings">
+          <label for="voices">Voice:
+            <div class="select">
+              <select name="voices" style="width:250px;display:inline-block;" class="btn-small" id="voices" title="Selects TTS voice">
+              </select>
+            </div>
+          </label>
+          <div id="voiceinfo"></div>
+          <div class="input">
+            <label for="pitch" title="pitch">Pitch: 
+              <span>1</span>
+              <input type="range" class="range" name="pitch" id="pitch" min="0" max="2" step="0.01" value="1" >
+            </label>
+          </div>
+          <div class="input">
+            <label for="rate" title="rate">Rate: 
+              <span>1</span>
+              <input type="range" class="range" name="rate" id="rate" min="0" max="10" step="0.01" value="1">
+            </label>
+          </div>
+          <div class="input">
+            <label for="volume" title="volume">Volume: 
+              <span>1</span>
+              <input type="range" class="range" name="volume" id="volume" min="0" max="1" step="0.01" value="1">
+            </label>
+          </div>
+          <div id="wordoutput" title="Shows the word spoken if 'onboundary' is supported">
+          </div>
+        </div>
+
+        <ul style="display: inline-block;">
+          <li>
+            <button class="btn-small" id="start-record-btn" title="Start Recording">Start Recognition</button>
+          </li>
+          <li>
+            <button class="btn-small" id="pause-record-btn" title="Pause Recording">Pause Recognition</button>
+          </li>
+          <li>
+            <button class="btn-small" id="clear-btn" title="Clear">Clear</button> 
+          </li>
+          <li>
+            <button class="btn-small" id="copy-btn" title="Copy">Copy</button> 
+          </li>
+          <li>
+            <button class="btn-small" type="button" name="talk" id="talk">Read</button>
+          </li>
+          <li>
+            <button class="btn-small" id="save-note-btn" title="Save Note">Save Note</button>
+          </li>
+          <br>
+          <br>
+          <li>
+            <select class="btn-small" id="language" class="select button" style="width:250px;display:inline-block;">
+            </select>
+          </li>
+        </ul>
+        <p id="recording-instructions">Press the <strong>Start Recognition</strong> button and allow access.</p>
+        <h3>My Notes</h3>
+        <ul id="notes">
+          <li>
+            <p class="no-notes">You don't have any notes.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <script>
+      (function () {
+        if (!"speechSynthesis" in window) {
+          Document.write("Sorry. Your browser does not have speech support");
+          exit;
+        }
+        var synth = window.speechSynthesis;
+        console.log("speechSynthesis", synth);
+        // Test to see when the "onvoiceschanged" is triggered
+        synth.onvoiceschanged = function (e) {
+          console.log("onvoiceschanged triggered", e);
+        };
+        // Chrome loads voices asynchronously.
+        // Chrome and Edge loads the voices asynchronously (But not Firefox), so we have to wait for them to appear
+        // Another way would be to use the "synth.onvoiceschanged" callback function.
+        // But this have some drawbacks (In Chrome the event is triggered everytime you use a Google voice), so Im using the timer method.
+        var waitTimerID = setInterval(function () {
+          console.log("ZZzz..");
+          // lang, default, name, voiceURI, localService
+          var voices = synth.getVoices();
+          // We got voices!
+          if (voices.length != 0) {
+          // Clear the interval timer, as we have the data needed
+            clearInterval(waitTimerID);
+            // Sort voices by language, then name (For Selectbox)
+            voices.sort(function (obj1, obj2) {
+              if (obj1.lang < obj2.lang) return -1;
+              if (obj1.lang > obj2.lang) return 1;
+              if (obj1.name < obj2.name) return -1;
+              if (obj1.name > obj2.name) return 1;
+              return 0;
+            });
+            var textInput = document.querySelector("#note-textarea");
+            var wordOutput = document.querySelector("#wordoutput");
+            var voiceInfo = document.querySelector("#voiceinfo");
+            var voicesSelect = document.querySelector("#voices");
+            var pitch = document.querySelector("#pitch");
+            var rate = document.querySelector("#rate");
+            var volume = document.querySelector("#volume");
+            var button = document.querySelector("#talk");
+            // Test if local storage is available
+            var lStorage = null;
+            if (!"localStorage" in window ||
+                typeof window.localStorage !== "undefined"
+            ) {
+                // Accessing "window.localStorage" on file: protocol, throws a "SCRIPT16389: Unspecified error." in MS Edge.
+                // So it needs the extra "typeof" check.
+                lStorage = window.localStorage;
+            } 
+            else {
+                console.log("No localstorage support available!");
+            }
+            // Get word at specific position. Used for extracting the word currently spoken
+            // Source: https://stackoverflow.com/questions/5173316/finding-the-word-at-a-position-in-javascript
+            var getWordAt = function (str, pos) {
+                // Perform type conversions.
+                str = String(str);
+                pos = Number(pos) >>> 0;
+                // Search for the word's beginning and end.
+                var left = str.slice(0, pos + 1).search(/\S+$/),
+                    right = str.slice(pos).search(/\s/);
+                // The last word in the string is a special case.
+                // else Return the word, using the located bounds to extract it from the string.
+                return right < 0 ? str.slice(left) : str.slice(left, right + pos);
+            };
+            // Displays info about current voice
+            var setVoiceInfo = function () {
+                var curVoice = voices.find(
+                    x => x.name === voicesSelect[voicesSelect.selectedIndex].value
+                );
+                if (curVoice) {
+                    var text = "name: " + curVoice.name;
+                    //text += ', lang: ' + curVoice.lang;
+                    //text += ", voiceURI: " + curVoice.voiceURI;
+                    text += ", default: " + curVoice.default;
+                    text += ", localService: " + curVoice.localService;
+                    voiceInfo.innerHTML = text;
+                }
+            };
+            // OnInput callback handler for range input controls
+            var onInput = function (e) {
+                e.target.previousElementSibling.previousElementSibling.innerHTML =
+                    e.target.value;
+                saveToLocalStorage();
+            };
+            // OnChange callback handler for voice selectbox
+            var onSelect = function (e) {
+                var curVoice = voices.find(
+                    x => x.name === voicesSelect[voicesSelect.selectedIndex].value
+                );
+                // Reduce max rate if not a localService
+                var maxRate = curVoice.localService ? 10 : 2;
+                rate.setAttribute("max", maxRate);
+                var reset = 1;
+                pitch.value = reset;
+                pitch.previousElementSibling.previousElementSibling.innerHTML = reset;
+                rate.value = reset;
+                rate.previousElementSibling.previousElementSibling.innerHTML = reset;
+                volume.value = reset;
+                volume.previousElementSibling.previousElementSibling.innerHTML = reset;
+                saveToLocalStorage();
+                setVoiceInfo();
+            };
+            // OnBoundary callback handler for when words is spoken
+            // Note: Event is not triggered when "localService" is false (Like the Google voices in Chrome)
+            var onBoundary = function (e) {
+                if (e.name == "word") {
+                    var word = getWordAt(e.target.text, e.charIndex);
+                    wordOutput.innerHTML = word;
+                }
+            };
+            // OnEnd callback handler for when speaking ends
+            var onEnd = function (e) {
+                wordOutput.innerHTML = "";
+            };
+            // Trigger the SpeechSynthesisUtterance
+            var utterText = function () {
+                var curVoice = voices.find(
+                    x => x.name === voicesSelect[voicesSelect.selectedIndex].value
+                );
+                // Cancel speaking if active
+                if (synth.speaking) synth.cancel();
+                var utterance = new SpeechSynthesisUtterance();
+                utterance.voice = curVoice;
+                utterance.lang = curVoice.lang;
+                utterance.pitch = pitch.value;
+                utterance.rate = rate.value;
+                utterance.volume = volume.value;
+                utterance.text = textInput.value;
+                if (curVoice.localService) utterance.onboundary = onBoundary;
+                else {
+                    wordOutput.innerHTML = "Reading...";
+                }
+                utterance.onend = onEnd;
+                synth.speak(utterance);
+            };
+            var saveToLocalStorage = function () {
+                if (lStorage == null) return;
+                lStorage.setItem("voice", voicesSelect[voicesSelect.selectedIndex].value);
+                lStorage.setItem("pitch", pitch.value);
+                lStorage.setItem("rate", rate.value);
+                lStorage.setItem("volume", volume.value);
+            };
+            /* Add events to input controls (range sliders) and voice select */
+            volume.addEventListener("input", onInput);
+            pitch.addEventListener("input", onInput);
+            rate.addEventListener("input", onInput);
+            voicesSelect.addEventListener("change", onSelect);
+            button.addEventListener("click", utterText);
+            // Set initial position of range input sliders
+            var pVal = (rVal = vVal = 1);
+            if (lStorage !== null) {
+                pVal = lStorage.getItem("pitch") || 1;
+                rVal = lStorage.getItem("rate") || 1;
+                vVal = lStorage.getItem("volume") || 1;
+            }
+            pitch.value = pVal;
+            pitch.previousElementSibling.previousElementSibling.innerHTML = pVal;
+            rate.value = rVal;
+            rate.previousElementSibling.previousElementSibling.innerHTML = rVal;
+            volume.value = vVal;
+            volume.previousElementSibling.previousElementSibling.innerHTML = vVal;
+            // Remove existing items from selectbox
+            for (var i = voicesSelect.options.length - 1; i >= 0; i--) {
+                voicesSelect.remove(i);
+            }
+            // Populate selectbox
+            var voVal = lStorage !== null ? lStorage.getItem("voice") : "";
+            for (var i = 0; i < voices.length; i++) {
+                var option = document.createElement("option");
+                option.textContent = voices[i].name + " (" + voices[i].lang + ")";
+                option.value = voices[i].name;
+                voicesSelect.appendChild(option);
+                if (voVal == voices[i].name) voicesSelect.selectedIndex = i;
+            }
+            setVoiceInfo();
+            // Reduce max rate if voice is not a localService
+            var curVoice = voices.find(
+                x => x.name === voicesSelect[voicesSelect.selectedIndex].value
+            );
+            var maxRate = curVoice.localService ? 10 : 2;
+            rate.setAttribute("max", maxRate);
+        }
+    }, 10);
+})();
+  </script>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'>
+  </script>
+  <script  src="js/note.js"></script>
+
+  </body>
+</html>
