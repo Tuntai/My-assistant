@@ -170,9 +170,9 @@ function renderNotes(notes) {
         notes.forEach(function (note) {
             html += `<li class="note">
         <p class="header">
-          <span class="date">${note.date}</span>
+          <span class="date" style="color:white">${note.date}</span>
           <a href="#" class="listen-note button" title="Listen to Note">Listen to Note</a>
-          <a href="#" class="delete-note button" title="Delete">Delete</a>
+          <a href="#" class="delete-note button" title="Delete"> Delete   </a>
           <a href="#" class="edit-note button" title="Edit">Edit</a>
         </p>
         <p class="content">${note.content}</p>
