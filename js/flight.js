@@ -46,7 +46,13 @@ recognition.onresult = event => {
     // time
     let t = currentTime();
     speak(t);
-  } else {
+  }
+    else if(
+    text.indexOf("thank you") >=0 ||
+    text.indexOf("thanks") >=0
+    ) {
+    speak(`You are Welcome`);
+  }  else {
     //   None of the above
     speak(`Sorry, I can't recognize that`);
   }

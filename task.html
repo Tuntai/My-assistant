@@ -1,46 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" style="font-family: 'Slabo 27px', serif;">
-
+<html lang="en" style="font-family: 'Slabo 27px', serif;background-color:#D8BFD8;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-        crossorigin="anonymous" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/task.css">
+    <title>Task Manager</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+    <link rel='stylesheet' href='https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/task1.css">
     <link rel="stylesheet" href="css/tab.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
-    
-    <title>Priority Space</title>
-    
-    <style>
-        body {
-            background-color: #9f9ec8
-        }
-
-        div.auto {
-            -webkit-hyphens: manual;
-            -ms-hyphens: manual;
-            hyphens: manual;
-        }
-    </style>
-
   </head>
-
-  <body>
-
-    <!--nav tab -->
+  <body style="font-family: 'Slabo 27px', serif;background-color:#D8BFD8;">
+<!--nav tab -->
     <div class="buttons-container" style="text-align:center;">
-      
       <ul class="buttons" style="display:inline-block;">
-
         <li> 
           <a id="home" name="home" href="index.html" title="Jot down!">
             <img src="static/icons/home.png" alt="">
@@ -88,64 +63,87 @@
         </li>
       </ul>
     </div>
-<!-- end of nav tab -->
+    <!-- end of nav tab -->
 
-    <<!-- Tagline -->
-    <div class="hv-light-purple hv-container hv-center" style="padding:25px             25px">
-      <h1 class="hv-xxlarge" data-aos="fade-in" style="margin:auto" data-aos-delay="50"><b>Priority Space</b></h1>
-      <!-- <p class="hv-xlarge" data-aos="fade-in" data-aos-delay="200">
+    <div class="container-fluid cover">
+      <div class="header">
+        <h2 style="margin-top:10px">Task Manager</h2>
+      </div>
+      <!-- task input form -->
+      <div class = "col-sm-12" id = "addTask">
+        <h4 style="text-align:center; color:white"><b>** Rest if you must but don't you quit! **</b></h4>
+        <br>
         
-      </p> -->
+        <div class="col-sm-12">
+          <label for="dueDate" style="font-size:20px">Due Date</label>
+          <input type="text" id = "dueDate" style="width:30%;                         height:40px"></input>
+        </div>
+  
+        <div class="col-sm-12">
+          <label for="status" style="font-size:20px">Details</label>
+          <input type="text" id = "status" style="width:30%;                          height:40px"></input>
+        </div>
+
+        <div class="col-sm-12">
+          <label for="priority" style="font-size:20px">Priority</label>
+          <input type="number" id = "priority" style="width:30%;                      height:40px"></input>
+        </div>
+        <!--task input form ends -->
+      </div>
+        <!-- Tadk add button -->
+      <div class = "col-sm-12" style="margin-left:700px">
+        <input id = "pushTask" type = "button" style="width:100px; height:50px; background-color:#9370DB;color:white; border-radius:10px" value = "Add"></input>
+      </div>
+      <!-- task List -->
+      <div class = "col-sm-12" id = "tasksContainer">
+        <table data-toggle="table" class = "table table-hover" id= "tasksTable">
+          <thead>
+            <tr>
+              <th data-field="dueDate" data-sortable="false">Due Date</th>
+              <th data-field="status" data-sortable="false">Details</th>
+              <th data-field="priority" data-sortable="false">Priority</th>
+              <th data-field="createdAt" data-sortable="false">Created At</th>
+              <th data-field="operations" data-sortable="false">Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <!-- Edit task modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Edit Task</h4>
+            </div>
+            <div class="modal-body">
+              <div class="">
+                <label for="editdueDate">Due Date</label>
+                <input type="text" id = "editdueDate"></input>
+              </div>
+              <div class="">
+                <label for="editstatus">Details</label>
+                <input type="text" id = "editstatus"></input>
+              </div>
+              <div class="">
+                <label for="editpriority">Priority</label>
+                <input type="number" id = "editpriority"></input>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id = "editSave" type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <section class="hv-row-padding hv-padding-top-10 hv-container                            hv-purple">            
-      <div data-aos="fade-in" data-aos-delay="300">
-        <h1 class="hv-xlarge">
-          <i class="fas fa-star" style="color:rgb(255, 241, 119)"></i>                Rest, if you must but don't you quit!
-          <i class="fas fa-star" style="color:rgb(255, 241, 119)"></i>
-        </h1>
-      </div>
-
-      <style>
-        div {
-              text-align: center;
-            }
-      </style>
-
-      <form data-aos="fade-in" data-aos-delay="400">
-        <input id="input1" type="text" class="todo-input" placeholder="One thing at a time" style="width:75%;margin: 0 0">
-        <button class="todo-button" type="submit">
-          <i class="fas fa-arrow-right"></i>
-        </button>
-      </form>
-      <div class="todo-container">
-        <ul class="todo-list" style="padding-inline-start: 0px;"></ul>
-      </div>
-    </section>
-
-
-<!-- initiate aos -->
-    <script src="js/task.js"></script>
-    <script src="js/sup.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>AOS.init({ once: true, duration: "600" });</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>        
-      $("#heart-trigger").click(function () {
-        $("li").toggleClass("visible");
-      });
-    </script>
-    <script>
-          superplaceholder({
-            el: input1,
-            sentences: ['Tasks of the day?', 'One thing at a time!'],
-            options: {
-              loop: true,
-              letterDelay: 200,
-              autoStart: true
-              }
-            })
-        </script>
-
+<!-- javascripts -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+  <script src='https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js'></script>
+  <script src="js/task1.js"></script>
   </body>
 </html>
