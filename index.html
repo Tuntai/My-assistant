@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html style="background-color:#9f9ec8; font-family: 'Slabo 27px', serif;">
+<html style="background-color:#9f9ec8; font-family: 'Slabo 27px', serif; text-align: cener">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <!-- for mobile view -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>My Assistant App</title>
+
     <!-- css files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/tab.css" rel="stylesheet" type="text/css" />
-     <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet"> 
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet"> 
 
   </head>
 
@@ -15,13 +19,19 @@
   <body>
 
     <!--nav tab -->
-    <div class="buttons-container">
+    <div class="buttons-container" style="text-align:center;">
       
-      <ul class="buttons" align="center">
+      <ul class="buttons" style="display:inline-block;">
 
         <li> 
           <a id="home" name="home" href="index.html" title="Jot down!">
             <img src="static/icons/home.png" alt="">
+          </a>
+        </li>
+
+        <li> 
+          <a id="Dashboard" name="Dashboard" href="index.html" title="Onestop Dashboard!">
+            <img src="static/icons/dash.png" alt="">
           </a>
         </li>
 
@@ -33,7 +43,7 @@
         
         <li> 
           <a id="note" name="note" href="note.html"  title="Jot down!">
-            <img src="static/icons/notes.png" alt="">
+            <img src="static/icons/note.png" alt="">
           </a>
         </li>
 
@@ -44,9 +54,13 @@
         </li>
                              
         <li>
-          <a id="flight_search" name="flight_search" href="flight.html" title="Flight Search">
-            <img src="static/icons/flight.png" alt="">
+          <a id="travel" name="travel" href="#" title="travel">
+            <img src="static/icons/travel.png" alt="">
           </a>
+          <ul class="dropdown-content">          
+              <li><a href="flight.html">Flights</a></li>
+              <li><a href="trains.html">Trains</a></li>
+            </ul>
         </li>
 
         <li>
@@ -54,16 +68,14 @@
             <img src="static/icons/heart.png" alt="">
           </a>
         </li>
-
       </ul>
-
     </div>
 <!-- end of nav tab -->
 
 <!-- main -->
-    <h2 style="text-align:center; color: white"> My Personal Assistant Ginny!</h2>
-    
     <div align="center" >
+       <h2 style="text-align:center; color: white"> My Personal Assistant Ginny!</h2>
+    
       <img style="width:400px; height:500px; border:solid white"  src="static/main logo.svg"/>
     </div>
 

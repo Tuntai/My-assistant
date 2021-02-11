@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Voice Controlled Notes App #speech Recognition</title>
+    <title>Voice Controlled Notes App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="css/note.css">
     <link rel="stylesheet" href="css/tab.css">
@@ -12,13 +12,20 @@
 
   <body style="color:white">
 
-    <div class="buttons-container">
+    <!--nav tab -->
+    <div class="buttons-container" style="text-align:center;">
       
-      <ul class="buttons" align="center">
+      <ul class="buttons" style="display:inline-block;">
 
         <li> 
-          <a id="home" name="home" href="index.html" title="Home">
+          <a id="home" name="home" href="index.html" title="Jot down!">
             <img src="static/icons/home.png" alt="">
+          </a>
+        </li>
+
+        <li> 
+          <a id="Dashboard" name="Dashboard" href="index.html" title="Onestop Dashboard!">
+            <img src="static/icons/dash.png" alt="">
           </a>
         </li>
 
@@ -30,7 +37,7 @@
         
         <li> 
           <a id="note" name="note" href="note.html"  title="Jot down!">
-            <img src="static/icons/notes.png" alt="">
+            <img src="static/icons/note.png" alt="">
           </a>
         </li>
 
@@ -41,9 +48,13 @@
         </li>
                              
         <li>
-          <a id="flight_search" name="flight_search" href="flight.html" title="Flight Search">
-            <img src="static/icons/flight.png" alt="">
+          <a id="travel" name="travel" href="#" title="travel">
+            <img src="static/icons/travel.png" alt="">
           </a>
+          <ul class="dropdown-content">          
+              <li><a href="flight.html">Flights</a></li>
+              <li><a href="trains.html">Trains</a></li>
+            </ul>
         </li>
 
         <li>
@@ -51,10 +62,10 @@
             <img src="static/icons/heart.png" alt="">
           </a>
         </li>
-
       </ul>
-
     </div>
+<!-- end of nav tab -->
+
     <br>
     <br>
   <!-- partial:index.partial.html -->
