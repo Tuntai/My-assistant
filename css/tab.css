@@ -1,16 +1,16 @@
 .buttons-container {
-  height:100px;
-  margin: auto auto;
-  padding-bottom: 42px;
-  position: relative;
+  height:80px;
+ 
+  padding-bottom: 30px;
+  /* position: relative; */
   
 }
 
 .buttons img {
-  height: 50px;
-  width: 50px;
-  padding: 4px 4px;
-  position: relative;
+  height: 45px;
+  width: 40px;
+  /* padding: 4px 4px; */
+  /* position: relative; */
   /*top: 5px;*/
   text-align: center;
   
@@ -34,12 +34,12 @@
   position: relative;
   left: 0.5px;
   float: left;
-  width: 100px;
+  width: 75px;
   text-align: center;
 }
 
 .buttons>li:hover {
-  border-radius: 20%;
+  /* border-radius: 20%; */
   background-color: #d9d9d9;
   transition: background-color 0.2s;
   text-align: center;
@@ -92,7 +92,7 @@
 }
 
 .second-dropdown-content>li {
-  height: 40px;
+  height: 30px;
   background-color: white;
 }
 

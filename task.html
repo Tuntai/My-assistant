@@ -2,7 +2,7 @@
 <html lang="en" style="font-family: 'Slabo 27px', serif;background-color:#D8BFD8;">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Task Manager</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css'>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/task1.css">
     <link rel="stylesheet" href="css/tab.css">
   </head>
-  <body style="font-family: 'Slabo 27px', serif;background-color:#D8BFD8;">
+  <body style="font-family: 'Slabo 27px', serif;background-color:#D8BFD8; padding: 0 0; margin: 0 0">
 <!--nav tab -->
     <div class="buttons-container" style="text-align:center;">
       <ul class="buttons" style="display:inline-block;">
@@ -64,8 +64,11 @@
       </ul>
     </div>
     <!-- end of nav tab -->
+<br>
+<br>
+<br>
 
-    <div class="container-fluid cover">
+    <div class="container-fluid cover" style="width:100%; padding:0 0 0 0; margin: 0 0">
       <div class="header">
         <h2 style="margin-top:10px">Task Manager</h2>
       </div>
@@ -91,11 +94,11 @@
         <!--task input form ends -->
       </div>
         <!-- Tadk add button -->
-      <div class = "col-sm-12" style="margin-left:700px">
+      <div class = "col-sm-12" style="text-align:center">
         <input id = "pushTask" type = "button" style="width:100px; height:50px; background-color:#9370DB;color:white; border-radius:10px" value = "Add"></input>
       </div>
       <!-- task List -->
-      <div class = "col-sm-12" id = "tasksContainer">
+      <div class = "col-sm-12" id = "tasksContainer" style="padding:0; margin:0">
         <table data-toggle="table" class = "table table-hover" id= "tasksTable">
           <thead>
             <tr>
