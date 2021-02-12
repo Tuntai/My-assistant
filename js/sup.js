@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var test = document.createElement('input');
   var isPlaceHolderSupported = 'placeholder' in test;
 
@@ -52,7 +52,7 @@
 
     var temp, randomIndex;
     if (this.options.shuffle) {
-      for (var i = this.texts.length; i--; ) {
+      for (var i = this.texts.length; i--;) {
         randomIndex = ~~(Math.random() * i);
         temp = this.texts[randomIndex];
         this.texts[randomIndex] = this.texts[i];
@@ -63,7 +63,7 @@
     this.begin();
   }
 
-  PlaceHolder.prototype.begin = function() {
+  PlaceHolder.prototype.begin = function () {
     var self = this;
     self.originalPlaceholder = self.el.getAttribute('placeholder');
 
@@ -81,7 +81,7 @@
     }
   };
 
-  PlaceHolder.prototype.onFocus = function() {
+  PlaceHolder.prototype.onFocus = function () {
     if (this.options.onFocusAction === Actions.START) {
       if (this.isInProgress()) {
         return;
@@ -92,7 +92,7 @@
     }
   };
 
-  PlaceHolder.prototype.onBlur = function() {
+  PlaceHolder.prototype.onBlur = function () {
     if (this.options.onBlurAction === Actions.STOP) {
       this.cleanUp();
     } else if (this.options.onBlurAction === Actions.START) {
@@ -103,9 +103,9 @@
     }
   };
 
-  PlaceHolder.prototype.cleanUp = function() {
+  PlaceHolder.prototype.cleanUp = function () {
     // Stop timeouts
-    for (var i = this.timeouts.length; i--; ) {
+    for (var i = this.timeouts.length; i--;) {
       clearTimeout(this.timeouts[i]);
     }
     // null means there was no placeholder attribute initially.
@@ -118,11 +118,11 @@
     this.isPlaying = false;
   };
 
-  PlaceHolder.prototype.isInProgress = function() {
+  PlaceHolder.prototype.isInProgress = function () {
     return this.isPlaying;
   };
 
-  PlaceHolder.prototype.typeString = function(str, callback) {
+  PlaceHolder.prototype.typeString = function (str, callback) {
     var self = this,
       timeout;
 
@@ -136,9 +136,9 @@
       self.el.setAttribute(
         'placeholder',
         str.substr(0, index + 1) +
-          (index === str.length - 1 || !self.options.showCursor
-            ? ''
-            : self.options.cursor)
+        (index === str.length - 1 || !self.options.showCursor
+          ? ''
+          : self.options.cursor)
       );
       // Call the completion callback when last character is being printed
       if (index === str.length - 1) {
@@ -151,19 +151,19 @@
     }
   };
 
-  PlaceHolder.prototype.processText = function(index) {
+  PlaceHolder.prototype.processText = function (index) {
     var self = this,
       timeout;
 
     this.isPlaying = true;
 
-    self.typeString(self.texts[index], function() {
+    self.typeString(self.texts[index], function () {
       // Empty the timeouts array
       self.timeouts.length = 0;
       if (!self.options.loop && !self.texts[index + 1]) {
         self.isPlaying = false;
       }
-      timeout = setTimeout(function() {
+      timeout = setTimeout(function () {
         self.processText(
           self.options.loop ? (index + 1) % self.texts.length : index + 1
         );
@@ -172,22 +172,22 @@
     });
   };
 
-  var superplaceholder = function(params) {
+  var superplaceholder = function (params) {
     if (!isPlaceHolderSupported) {
       return;
     }
     var instance = new PlaceHolder(params.el, params.sentences, params.options);
     return {
-      start: function() {
+      start: function () {
         if (instance.isInProgress()) {
           return;
         }
         instance.processText(0);
       },
-      stop: function() {
+      stop: function () {
         instance.cleanUp();
       },
-      destroy: function() {
+      destroy: function () {
         instance.cleanUp();
         for (var eventName in instance.listeners) {
           instance.el.removeEventListener(
@@ -207,7 +207,7 @@
     module.exports = superplaceholder;
   } else if (typeof define === 'function' && define.amd) {
     // AMD module
-    define(function() {
+    define(function () {
       return superplaceholder;
     });
   } else {

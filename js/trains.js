@@ -34,9 +34,9 @@ recognition.onresult = event => {
     //   Search
 
     // takeout the search term from string
-    let q = text.substring(text.indexOf("from") + 5, text.indexOf("to")-1).toLowerCase();;
+    let q = text.substring(text.indexOf("from") + 5, text.indexOf("to") - 1).toLowerCase();;
     console.log(q);
-    let r= text.substr(text.indexOf("to")+3).toLowerCase();;
+    let r = text.substr(text.indexOf("to") + 3).toLowerCase();;
     console.log(r);
 
     speak(`Searching for trains from ${q} to ${r}`);
@@ -59,7 +59,7 @@ const start = document.querySelector(".start"),
   main = document.querySelector(".container"),
   icon = document.querySelector(".fa-microphone");
 
-start.addEventListener("click", function() {
+start.addEventListener("click", function () {
   // Show bot
   main.style.display = "flex";
   this.style.display = "none";
@@ -73,7 +73,7 @@ function currentTime() {
   let date = new Date();
   return `It's ${date.getHours()} ${date.getMinutes()} ${
     date.getHours() >= 12 ? "PM" : "AM"
-  }`;
+    }`;
 }
 
 // Speak function

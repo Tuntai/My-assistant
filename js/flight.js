@@ -47,12 +47,12 @@ recognition.onresult = event => {
     let t = currentTime();
     speak(t);
   }
-    else if(
-    text.indexOf("thank you") >=0 ||
-    text.indexOf("thanks") >=0
-    ) {
+  else if (
+    text.indexOf("thank you") >= 0 ||
+    text.indexOf("thanks") >= 0
+  ) {
     speak(`You are Welcome`);
-  }  else {
+  } else {
     //   None of the above
     speak(`Sorry, I can't recognize that`);
   }
@@ -63,7 +63,7 @@ const start = document.querySelector(".start"),
   main = document.querySelector(".container"),
   icon = document.querySelector(".fa-microphone");
 
-start.addEventListener("click", function() {
+start.addEventListener("click", function () {
   // Show bot
   main.style.display = "flex";
   this.style.display = "none";
@@ -77,7 +77,7 @@ function currentTime() {
   let date = new Date();
   return `It's ${date.getHours()} ${date.getMinutes()} ${
     date.getHours() >= 12 ? "PM" : "AM"
-  }`;
+    }`;
 }
 
 // Speak function
