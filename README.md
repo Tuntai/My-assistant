@@ -1,6 +1,7 @@
 # Your Personal Assistant - Ginny!
 Ginny is not only an assistant it is more than that. Ginny is a tool that gives the user the power to automate their task. <br>
-**My submission for Microsoft ENGAGE WIT Hackathon, 2021 :crown:**
+**My submission for Microsoft ENGAGE WIT Hackathon, 2021 :crown:** <br>
+#### <a href="https://drive.google.com/file/d/1pHMnLkix2w6zUGccEyeDsfQPBi2WpCUM/view?usp=sharing" target="_blank">👩🏻‍🏫 Presentation</a>
 <hr>
 
 ## Features :sparkles:
